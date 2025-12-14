@@ -36,11 +36,16 @@ export const useGitHubRepos = (username, options = {}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Extract options to avoid dependency issues
+  const sort = options.sort || 'updated';
+  const perPage = options.perPage || 100;
+  const type = options.type || 'owner';
+
   useEffect(() => {
     const fetchRepos = async () => {
       try {
         setLoading(true);
-        const data = await githubService.getUserRepos(username, options);
+        const data = await githubService.getUserRepos(username, { sort, perPage, type });
         setRepos(data);
         setError(null);
       } catch (err) {
@@ -54,7 +59,7 @@ export const useGitHubRepos = (username, options = {}) => {
     if (username) {
       fetchRepos();
     }
-  }, [username, options.sort, options.perPage, options.type]);
+  }, [username, sort, perPage, type]);
 
   return { repos, loading, error };
 };

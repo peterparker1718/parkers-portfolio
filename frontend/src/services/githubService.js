@@ -11,14 +11,14 @@ class GitHubService {
     this.api = axios.create({
       baseURL: GITHUB_API_BASE,
       headers: {
-        'Accept': 'application/vnd.github.v3+json',
+        'Accept': 'application/vnd.github+json',
       }
     });
     
     // Add GitHub token if available for higher rate limits
     const token = process.env.REACT_APP_GITHUB_TOKEN;
     if (token) {
-      this.api.defaults.headers.common['Authorization'] = `token ${token}`;
+      this.api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
   }
 

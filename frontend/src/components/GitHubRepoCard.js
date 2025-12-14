@@ -82,8 +82,6 @@ const getLanguageColor = (language) => {
     'C#': '#178600',
     'HTML': '#e34c26',
     'CSS': '#563d7c',
-    'Vue': '#2c3e50',
-    'React': '#61dafb',
     'Shell': '#89e051',
     'Dart': '#00B4AB',
   };

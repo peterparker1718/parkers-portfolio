@@ -9,13 +9,18 @@ const Projects = () => {
   const [filterLanguage, setFilterLanguage] = useState('all');
   const { repos, loading, error } = useGitHubRepos(GITHUB_USERNAME, { sort: sortBy });
 
-  // Get unique languages from repos
-  const languages = [...new Set(repos.map(repo => repo.language).filter(Boolean))].sort();
+  // Get unique languages from repos - memoized to avoid recalculation
+  const languages = React.useMemo(() => {
+    return [...new Set(repos.map(repo => repo.language).filter(Boolean))].sort();
+  }, [repos]);
 
-  // Filter repos by language
-  const filteredRepos = filterLanguage === 'all' 
-    ? repos.filter(repo => !repo.fork) // Exclude forked repos by default
-    : repos.filter(repo => repo.language === filterLanguage && !repo.fork);
+  // Filter repos by language - memoized to avoid recalculation
+  const filteredRepos = React.useMemo(() => {
+    if (filterLanguage === 'all') {
+      return repos.filter(repo => !repo.fork); // Exclude forked repos by default
+    }
+    return repos.filter(repo => repo.language === filterLanguage && !repo.fork);
+  }, [repos, filterLanguage]);
 
   return (
     <div className="projects">
