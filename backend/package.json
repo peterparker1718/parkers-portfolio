@@ -1,0 +1,40 @@
+{
+  "name": "parkers-portfolio-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Parker's Portfolio",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "build": "echo 'Backend build completed'",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/ --ext .js",
+    "lint:fix": "eslint src/ --ext .js --fix"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "morgan": "^1.10.0",
+    "dotenv": "^16.3.1",
+    "mongoose": "^7.5.0",
+    "nodemailer": "^6.9.4",
+    "express-validator": "^7.0.1",
+    "express-rate-limit": "^6.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "jest": "^29.6.2",
+    "supertest": "^6.3.3",
+    "eslint": "^8.48.0"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "api",
+    "portfolio"
+  ],
+  "author": "Parker",
+  "license": "MIT"
+}
