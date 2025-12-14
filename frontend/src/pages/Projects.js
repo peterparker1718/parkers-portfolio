@@ -1,62 +1,104 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useGitHubRepos } from '../hooks/useGitHub';
+import GitHubRepoCard from '../components/GitHubRepoCard';
+
+const GITHUB_USERNAME = process.env.REACT_APP_GITHUB_USERNAME || 'peterparker1718';
 
 const Projects = () => {
-  const projects = [
-    {
-      id: 1,
-      title: "E-Commerce Platform",
-      description: "A full-stack e-commerce solution built with React and Node.js",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      github: "https://github.com/example/ecommerce",
-      live: "https://example-ecommerce.com"
-    },
-    {
-      id: 2,
-      title: "Task Management App",
-      description: "A collaborative task management application with real-time updates",
-      technologies: ["Vue.js", "Express", "Socket.io", "PostgreSQL"],
-      github: "https://github.com/example/taskmanager",
-      live: "https://example-tasks.com"
-    },
-    {
-      id: 3,
-      title: "Weather Dashboard",
-      description: "A responsive weather dashboard with location-based forecasting",
-      technologies: ["React", "OpenWeather API", "Chart.js", "CSS3"],
-      github: "https://github.com/example/weather",
-      live: "https://example-weather.com"
-    }
-  ];
+  const [sortBy, setSortBy] = useState('updated');
+  const [filterLanguage, setFilterLanguage] = useState('all');
+  const { repos, loading, error } = useGitHubRepos(GITHUB_USERNAME, { sort: sortBy });
+
+  // Get unique languages from repos
+  const languages = [...new Set(repos.map(repo => repo.language).filter(Boolean))].sort();
+
+  // Filter repos by language
+  const filteredRepos = filterLanguage === 'all' 
+    ? repos.filter(repo => !repo.fork) // Exclude forked repos by default
+    : repos.filter(repo => repo.language === filterLanguage && !repo.fork);
 
   return (
     <div className="projects">
       <section className="projects-hero">
-        <h1>My Projects</h1>
-        <p>A collection of my recent work and experiments</p>
+        <h1>My GitHub Projects</h1>
+        <p>A collection of {repos.length} repositories showcasing my work and contributions</p>
+      </section>
+
+      <section className="projects-filters">
+        <div className="filter-group">
+          <label htmlFor="sort-select">Sort by:</label>
+          <select 
+            id="sort-select" 
+            value={sortBy} 
+            onChange={(e) => setSortBy(e.target.value)}
+            className="filter-select"
+          >
+            <option value="updated">Recently Updated</option>
+            <option value="created">Recently Created</option>
+            <option value="pushed">Recently Pushed</option>
+            <option value="full_name">Name</option>
+          </select>
+        </div>
+
+        <div className="filter-group">
+          <label htmlFor="language-select">Language:</label>
+          <select 
+            id="language-select" 
+            value={filterLanguage} 
+            onChange={(e) => setFilterLanguage(e.target.value)}
+            className="filter-select"
+          >
+            <option value="all">All Languages</option>
+            {languages.map(lang => (
+              <option key={lang} value={lang}>{lang}</option>
+            ))}
+          </select>
+        </div>
       </section>
       
-      <section className="projects-grid">
-        {projects.map(project => (
-          <div key={project.id} className="project-card">
-            <div className="project-content">
-              <h3>{project.title}</h3>
-              <p>{project.description}</p>
-              <div className="technologies">
-                {project.technologies.map(tech => (
-                  <span key={tech} className="tech-tag">{tech}</span>
-                ))}
-              </div>
-              <div className="project-links">
-                <a href={project.github} target="_blank" rel="noopener noreferrer">
-                  GitHub
-                </a>
-                <a href={project.live} target="_blank" rel="noopener noreferrer">
-                  Live Demo
-                </a>
-              </div>
-            </div>
+      <section className="projects-list">
+        {loading && (
+          <div className="loading-container">
+            <p>Loading projects from GitHub...</p>
           </div>
-        ))}
+        )}
+        
+        {error && (
+          <div className="error-container">
+            <p>Error loading projects: {error}</p>
+            <p>Please check your internet connection or try again later.</p>
+          </div>
+        )}
+        
+        {!loading && !error && filteredRepos.length === 0 && (
+          <div className="no-projects-container">
+            <p>No projects found with the selected filters.</p>
+          </div>
+        )}
+        
+        {!loading && !error && filteredRepos.length > 0 && (
+          <>
+            <div className="projects-count">
+              Showing {filteredRepos.length} {filteredRepos.length === 1 ? 'project' : 'projects'}
+            </div>
+            <div className="projects-grid">
+              {filteredRepos.map(repo => (
+                <GitHubRepoCard key={repo.id} repo={repo} />
+              ))}
+            </div>
+          </>
+        )}
+      </section>
+
+      <section className="github-link-section">
+        <a 
+          href={`https://github.com/${GITHUB_USERNAME}`} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="btn-primary"
+        >
+          View All on GitHub →
+        </a>
       </section>
     </div>
   );

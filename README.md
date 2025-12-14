@@ -4,7 +4,9 @@ A comprehensive, professional portfolio repository with organized structure for 
 
 ## 🚀 Features
 
+- **GitHub Integration**: Automatically displays your GitHub profile, repositories, and statistics
 - **Modern Frontend**: React 18 with routing, hooks, and responsive design
+- **Dynamic Project Showcase**: Real-time fetching of your GitHub projects with filtering and sorting
 - **Robust Backend**: Node.js/Express API with validation and security
 - **Multiple Deployment Options**: Vercel, Netlify, Docker, and more
 - **Comprehensive Documentation**: API docs, guides, and examples
@@ -53,7 +55,8 @@ parkers-portfolio/
 ### Frontend
 - **React 18** - Modern React with hooks
 - **React Router** - Client-side routing
-- **Axios** - HTTP client
+- **Axios** - HTTP client for API requests and GitHub integration
+- **GitHub API Integration** - Real-time fetching of profile and repositories
 - **CSS3** - Modern styling with flexbox/grid
 - **React Testing Library** - Testing framework
 
@@ -94,8 +97,18 @@ npm run install:all
 ```
 
 3. **Set up environment variables**
+
+**Frontend Configuration:**
 ```bash
-cd backend
+cd frontend
+cp .env.example .env
+# Edit .env and set your GitHub username:
+# REACT_APP_GITHUB_USERNAME=your-github-username
+```
+
+**Backend Configuration:**
+```bash
+cd ../backend
 cp .env.example .env
 # Edit .env with your configuration
 ```
@@ -108,6 +121,8 @@ npm run dev
 This starts:
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:5000
+
+The frontend will automatically fetch and display your GitHub profile, repositories, and statistics.
 
 ## 📋 Available Scripts
 
@@ -158,6 +173,42 @@ docker-compose up --build
 ```
 
 See [Deployment Guide](docs/guides/deployment.md) for detailed instructions.
+
+## 🐙 GitHub Integration
+
+This portfolio automatically integrates with the GitHub API to showcase your work:
+
+### Features
+- **Profile Display**: Shows your GitHub avatar, bio, follower count, and more
+- **Live Repository Showcase**: Automatically fetches and displays all your public repositories
+- **Statistics Dashboard**: Calculates and displays your total stars, forks, and language usage
+- **Featured Projects**: Intelligently selects your best projects based on stars and activity
+- **Filtering & Sorting**: Filter projects by language and sort by various criteria
+- **Real-time Updates**: Always shows your latest work without manual updates
+
+### Configuration
+
+1. Set your GitHub username in `frontend/.env`:
+```bash
+REACT_APP_GITHUB_USERNAME=your-github-username
+```
+
+2. (Optional) Add a GitHub Personal Access Token for higher API rate limits:
+```bash
+REACT_APP_GITHUB_TOKEN=your_github_token
+```
+
+Get your token from [GitHub Settings](https://github.com/settings/tokens) with `public_repo` scope.
+
+### How It Works
+
+The portfolio uses custom React hooks and services to fetch data from GitHub's REST API:
+- `useGitHubProfile` - Fetches user profile information
+- `useGitHubRepos` - Fetches all repositories with sorting options
+- `useGitHubStats` - Calculates statistics from repository data
+- `useFeaturedRepos` - Intelligently selects featured projects
+
+All components automatically handle loading states and errors, providing a seamless user experience.
 
 ## 📖 Documentation
 
