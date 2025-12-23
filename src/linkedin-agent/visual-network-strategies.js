@@ -82,10 +82,13 @@ export class VisualNetworkStrategies {
    * @returns {object} Strategy and recommendations
    */
   optimizeFeaturedSection(currentFeatured = []) {
+    // Ensure currentFeatured is an array
+    const featured = Array.isArray(currentFeatured) ? currentFeatured : [];
+    
     const strategy = {
       current: {
-        count: currentFeatured.length,
-        types: this._categorizeItems(currentFeatured)
+        count: featured.length,
+        types: this._categorizeItems(featured)
       },
       recommendations: [],
       idealMix: this._getIdealFeaturedMix(),
@@ -93,7 +96,7 @@ export class VisualNetworkStrategies {
     };
 
     // Check if featured section is used
-    if (currentFeatured.length === 0) {
+    if (featured.length === 0) {
       strategy.recommendations.push('Add featured items to showcase your best work');
       strategy.recommendations.push('Aim for 3-6 featured items for optimal impact');
       strategy.score = 0;
@@ -101,9 +104,9 @@ export class VisualNetworkStrategies {
       let score = 0.3; // Base score for having featured items
 
       // Check quantity
-      if (currentFeatured.length >= 3 && currentFeatured.length <= 6) {
+      if (featured.length >= 3 && featured.length <= 6) {
         score += 0.3;
-      } else if (currentFeatured.length < 3) {
+      } else if (featured.length < 3) {
         strategy.recommendations.push('Add more featured items (aim for 3-6)');
         score += 0.1;
       } else {
@@ -112,7 +115,7 @@ export class VisualNetworkStrategies {
       }
 
       // Check variety
-      const uniqueTypes = new Set(currentFeatured.map(item => item.type));
+      const uniqueTypes = new Set(featured.map(item => item.type));
       if (uniqueTypes.size >= 2) {
         score += 0.2;
         strategy.recommendations.push('Good variety in featured content types');
@@ -121,7 +124,8 @@ export class VisualNetworkStrategies {
       }
 
       // Check recency
-      const hasRecentItems = currentFeatured.some(item => {
+      const hasRecentItems = featured.some(item => {
+        if (!item.date) return false;
         const itemDate = new Date(item.date);
         const sixMonthsAgo = new Date();
         sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
@@ -263,6 +267,9 @@ export class VisualNetworkStrategies {
 
   _categorizeItems(items) {
     const categorized = {};
+    if (!items || !Array.isArray(items)) {
+      return categorized;
+    }
     items.forEach(item => {
       const type = item.type || 'other';
       categorized[type] = (categorized[type] || 0) + 1;
