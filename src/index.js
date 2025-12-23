@@ -23,7 +23,7 @@ export { VisualNetworkStrategies } from './linkedin-agent/visual-network-strateg
  * @param {object} config - Configuration options
  * @returns {object} Initialized LinkedIn Portfolio
  */
-export function createLinkedInPortfolio(profileData = {}, config = {}) {
+export async function createLinkedInPortfolio(profileData = {}, config = {}) {
   const { LinkedInPortfolio } = await import('./linkedin-portfolio/linkedin-portfolio.js');
   const portfolio = new LinkedInPortfolio(config);
   portfolio.initialize(profileData);
@@ -36,7 +36,7 @@ export function createLinkedInPortfolio(profileData = {}, config = {}) {
  * @param {object} config - Configuration options
  * @returns {object} Initialized Base Portfolio
  */
-export function createBasePortfolio(profileData = {}, config = {}) {
+export async function createBasePortfolio(profileData = {}, config = {}) {
   const { BasePortfolio } = await import('./portfolio/base-portfolio.js');
   const portfolio = new BasePortfolio(config);
   portfolio.initialize(profileData);
