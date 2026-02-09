@@ -1,11 +1,11 @@
 /**
  * Inventory Manifest UI Rendering Tests
  *
- * Validates the Bloomberg Terminal × Coffee Origin interface renders
+ * Validates the Bloomberg Terminal x Coffee Origin interface renders
  * correctly with all lot data, 8 origin icons, and thumbnail grid.
  */
 
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import InventoryManifest from "@/components/InventoryManifest";
 import { INVENTORY, CROP_THUMBNAILS } from "@/data/inventory";
 import { ORIGINS } from "@/data/content";
@@ -36,57 +36,90 @@ function filterMotionProps(props: Record<string, unknown>) {
   return filtered;
 }
 
-describe("InventoryManifest Component", () => {
+// Use fake timers to advance past skeleton loading
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.useRealTimers();
+});
+
+function renderAndLoad() {
+  const result = render(<InventoryManifest />);
+  // Advance past the 1200ms skeleton loading timer
+  act(() => {
+    jest.advanceTimersByTime(1500);
+  });
+  return result;
+}
+
+describe("InventoryManifest — Skeleton Phase", () => {
+  it("should show skeleton initially before loading completes", () => {
+    const { queryByTestId } = render(<InventoryManifest />);
+    expect(queryByTestId("inventory-skeleton")).toBeTruthy();
+  });
+
+  it("should hide skeleton after loading", () => {
+    const { queryByTestId } = render(<InventoryManifest />);
+    act(() => {
+      jest.advanceTimersByTime(1500);
+    });
+    expect(queryByTestId("inventory-skeleton")).toBeNull();
+  });
+});
+
+describe("InventoryManifest — Loaded State", () => {
   it("should render without errors", () => {
-    const { container } = render(<InventoryManifest />);
+    const { container } = renderAndLoad();
     expect(container.firstChild).toBeTruthy();
   });
 
   it("should display INVENTORY MANIFEST header", () => {
-    render(<InventoryManifest />);
+    renderAndLoad();
     expect(screen.getByText("INVENTORY MANIFEST")).toBeTruthy();
   });
 
   it("should display LIVE DATA badge", () => {
-    render(<InventoryManifest />);
+    renderAndLoad();
     expect(screen.getByText("LIVE DATA")).toBeTruthy();
   });
 
   it("should display total lots count", () => {
-    render(<InventoryManifest />);
+    renderAndLoad();
     expect(
       screen.getByText(`${INVENTORY.length} Verified`)
     ).toBeTruthy();
   });
 
   it("should display Dr. Fika as Lead QA", () => {
-    render(<InventoryManifest />);
+    renderAndLoad();
     expect(screen.getByText("Dr. Fika Safitri")).toBeTruthy();
   });
 
   it("should render all inventory lot names", () => {
-    render(<InventoryManifest />);
+    renderAndLoad();
     INVENTORY.forEach((lot) => {
       expect(screen.getByText(lot.name)).toBeTruthy();
     });
   });
 
   it("should render all inventory lot SCA scores", () => {
-    render(<InventoryManifest />);
+    renderAndLoad();
     INVENTORY.forEach((lot) => {
       expect(screen.getByText(String(lot.score))).toBeTruthy();
     });
   });
 
   it("should render all 8 origin profile names", () => {
-    render(<InventoryManifest />);
+    renderAndLoad();
     ORIGINS.forEach((origin) => {
       expect(screen.getByText(origin.name)).toBeTruthy();
     });
   });
 
   it("should render 8 flavor icon labels", () => {
-    render(<InventoryManifest />);
+    renderAndLoad();
     const flavorLabels = [
       "Fruity",
       "Floral",
@@ -103,23 +136,38 @@ describe("InventoryManifest Component", () => {
   });
 
   it("should render 8 SVG icons", () => {
-    const { container } = render(<InventoryManifest />);
+    const { container } = renderAndLoad();
     const svgs = container.querySelectorAll("svg");
     expect(svgs.length).toBe(8);
   });
 
   it("should render all thumbnail crop labels", () => {
-    render(<InventoryManifest />);
+    renderAndLoad();
     CROP_THUMBNAILS.forEach((thumb) => {
       expect(screen.getByText(thumb.label)).toBeTruthy();
     });
   });
 
   it("should display section headers", () => {
-    const { container } = render(<InventoryManifest />);
+    const { container } = renderAndLoad();
     const text = container.textContent || "";
     expect(text).toContain("FLAVOR ARCHITECTURE");
     expect(text).toContain("PROTECTED RESERVE ORIGINS");
     expect(text).toContain("PHYSICAL SAMPLE MAPPING");
+  });
+
+  it("should show PDF export button", () => {
+    const { getByTestId } = renderAndLoad();
+    expect(getByTestId("export-pdf-btn")).toBeTruthy();
+  });
+
+  it("should show drag-drop zone", () => {
+    const { getByTestId } = renderAndLoad();
+    expect(getByTestId("drop-zone")).toBeTruthy();
+  });
+
+  it("should show asset ingestion section header", () => {
+    const { container } = renderAndLoad();
+    expect(container.textContent).toContain("ASSET INGESTION");
   });
 });
