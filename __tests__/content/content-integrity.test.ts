@@ -6,6 +6,7 @@
  * - Origins have valid tasting notes
  * - Sample flights have valid pricing
  * - No duplicate IDs
+ * - Flash cards have required fields
  */
 
 import {
@@ -15,6 +16,7 @@ import {
   SAMPLE_FLIGHTS,
   TAGLINES,
   PALETTE,
+  FLASH_CARDS,
   type PageContent,
 } from "@/data/content";
 
@@ -79,15 +81,15 @@ describe("Page Content Integrity", () => {
     const ids = PAGES.map((p) => p.id);
     const required = [
       "cover",
+      "problem",
       "bridge",
       "story-meeting",
       "story-commitment",
       "story-union",
       "vault",
-      "advantage",
-      "origins",
-      "revenue",
-      "decision",
+      "offer",
+      "jamie",
+      "closing",
       "back",
     ];
     required.forEach((section) => {
@@ -173,4 +175,25 @@ describe("Taglines", () => {
       expect(tagline.length).toBeLessThanOrEqual(50);
     });
   });
+});
+
+describe("Flash Cards", () => {
+  it("should have exactly 10 flash cards", () => {
+    expect(FLASH_CARDS.length).toBe(10);
+  });
+
+  it("should have no duplicate card IDs", () => {
+    const ids = FLASH_CARDS.map((c) => c.id);
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it.each(FLASH_CARDS.map((c) => [c.id, c]))(
+    "card '%s' should have title, theme, front, and back",
+    (_id, card) => {
+      expect(card.title.trim().length).toBeGreaterThan(0);
+      expect(card.theme.trim().length).toBeGreaterThan(0);
+      expect(card.front.trim().length).toBeGreaterThan(0);
+      expect(card.back.trim().length).toBeGreaterThan(0);
+    }
+  );
 });

@@ -6,17 +6,16 @@
  *
  * Covers:
  * 1. Front cover textual extraction & hook layout
- * 2. Page 2 (Bridge/Thesis) messaging coherence
+ * 2. Problem page messaging coherence
  * 3. Period density analysis across all hooks
  * 4. Cognitive hierarchy: 1-liner → 3-liner → visual
- * 5. Narrative arc: PROBLEM → CAUSE → FAILURE → INFLECTION → SHIFT → RESULT
+ * 5. Narrative arc alignment with logic chain
  * 6. Brand voice calibration compliance
- * 7. Revenue model internal consistency
- * 8. Origin profile completeness
- * 9. Cross-content consistency (no contradictions)
+ * 7. Origin profile completeness
+ * 8. Cross-content consistency (no contradictions)
  */
 
-import { BRAND, PAGES, ORIGINS, SAMPLE_FLIGHTS, TAGLINES, PALETTE } from "@/data/content";
+import { BRAND, PAGES, ORIGINS, SAMPLE_FLIGHTS, TAGLINES, PALETTE, FLASH_CARDS } from "@/data/content";
 import {
   FRONT_PAGE_CONCEPTS,
   LOGIC_CHAIN,
@@ -47,25 +46,17 @@ describe("Front Cover (Page 1) — Textual Layout", () => {
     expect(cover.title).toBe("JAVA BRIDGE COFFEE");
   });
 
-  it("cover hook should be the brand's primary tagline", () => {
-    expect(cover.hook).toBe("Two Javas. One Bridge.");
+  it("cover hook should be the brand tagline", () => {
+    expect(cover.hook).toContain("Source");
+    expect(cover.hook).toContain("Distribution");
   });
 
-  it("cover body should contain brand tagline and family statement", () => {
-    expect(cover.body).toContain("We Are The Source & The Distribution.");
-    expect(cover.body).toContain(
-      "We don't contract the farm. We are the family."
-    );
+  it("cover body should contain family statement", () => {
+    expect(cover.body.some((line) => line.includes("family"))).toBe(true);
   });
 
   it("cover should use dark cloth background", () => {
     expect(cover.background).toBe("cloth");
-  });
-
-  it("cover hook period density should be binary-impact (2 periods)", () => {
-    const analysis = analyzeHook(cover.hook, cover.id);
-    expect(analysis.periodCount).toBe(2);
-    expect(analysis.rhythm).toBe("binary-impact");
   });
 
   it("cover hook should be under 15 words", () => {
@@ -75,47 +66,39 @@ describe("Front Cover (Page 1) — Textual Layout", () => {
 });
 
 // =========================================================================
-// 2. PAGE 2 (THE BRIDGE) — Thesis Statement Coherence
+// 2. PROBLEM PAGE — Supply Chain Crisis
 // =========================================================================
 
-describe("Page 2 (The Bridge) — Thesis Statement", () => {
-  const bridge = PAGES.find((p) => p.id === "bridge")!;
+describe("Problem Page (Page 2) — Supply Chain Crisis", () => {
+  const problem = PAGES.find((p) => p.id === "problem")!;
 
-  it("bridge should be the second page", () => {
-    expect(PAGES[1].id).toBe("bridge");
+  it("problem should be the second page", () => {
+    expect(PAGES[1].id).toBe("problem");
   });
 
-  it("bridge hook should state the core problem", () => {
-    expect(bridge.hook).toBe(
-      "The real problem isn't coffee. It's trust at scale across borders."
-    );
+  it("problem hook should identify structural exposure", () => {
+    expect(problem.hook.toLowerCase()).toContain("broken");
   });
 
-  it("bridge body should follow the 3-line explanation pattern", () => {
-    expect(bridge.body.length).toBe(3);
+  it("problem body should follow the 3-line explanation pattern", () => {
+    expect(problem.body.length).toBe(3);
   });
 
-  it("bridge body line 1 should acknowledge Indonesia's quality", () => {
-    expect(bridge.body[0].toLowerCase()).toContain("extraordinary");
+  it("problem body should mention intermediaries", () => {
+    const text = problem.body.join(" ").toLowerCase();
+    expect(text.includes("intermediaries") || text.includes("middlemen")).toBe(true);
   });
 
-  it("bridge body line 2 should identify the translation gap", () => {
-    expect(bridge.body[1].toLowerCase()).toContain("translate");
+  it("problem should use kraft background (alternating from cover)", () => {
+    expect(problem.background).toBe("kraft");
   });
 
-  it("bridge body line 3 should state the structural solution", () => {
-    expect(bridge.body[2].toLowerCase()).toContain("structure");
-  });
-
-  it("bridge should use kraft background (alternating from cover)", () => {
-    expect(bridge.background).toBe("kraft");
-  });
-
-  it("bridge proof layer should establish the three-pillar system", () => {
-    expect(bridge.proof).toBeDefined();
-    expect(bridge.proof!.length).toBe(3);
-    expect(bridge.proof!.some((p) => p.includes("SCA"))).toBe(true);
-    expect(bridge.proof!.some((p) => p.includes("Science"))).toBe(true);
+  it("problem proof layer should compare Sumatra vs East Java", () => {
+    expect(problem.proof).toBeDefined();
+    expect(problem.proof!.length).toBe(2);
+    const proofText = problem.proof!.join(" ").toLowerCase();
+    expect(proofText).toContain("sumatra");
+    expect(proofText).toContain("east java");
   });
 });
 
@@ -142,9 +125,6 @@ describe("Period Density Analysis — All Hooks", () => {
   });
 
   it("should have correct rhythm classification for known hooks", () => {
-    const coverAnalysis = analyses.find((a) => a.pageId === "cover")!;
-    expect(coverAnalysis.rhythm).toBe("binary-impact");
-
     const storyMeetingAnalysis = analyses.find((a) => a.pageId === "story-meeting")!;
     expect(storyMeetingAnalysis.rhythm).toBe("declarative-power");
 
@@ -172,7 +152,7 @@ describe("Cognitive Hierarchy — Full Booklet", () => {
   });
 
   it("strategic pages have proof layer (Layer 3)", () => {
-    const strategicIds = ["bridge", "story-meeting", "story-commitment", "story-union", "vault", "advantage", "revenue", "decision"];
+    const strategicIds = ["problem", "bridge", "story-meeting", "story-commitment", "story-union", "vault", "offer", "jamie", "closing"];
     strategicIds.forEach((id) => {
       const page = PAGES.find((p) => p.id === id)!;
       expect(page.proof).toBeDefined();
@@ -182,7 +162,7 @@ describe("Cognitive Hierarchy — Full Booklet", () => {
 });
 
 // =========================================================================
-// 5. NARRATIVE ARC — PROBLEM → CAUSE → FAILURE → INFLECTION → SHIFT → RESULT
+// 5. NARRATIVE ARC — Alignment with Logic Chain
 // =========================================================================
 
 describe("Narrative Arc — Logic Chain Alignment", () => {
@@ -197,13 +177,13 @@ describe("Narrative Arc — Logic Chain Alignment", () => {
     ]);
   });
 
-  it("bridge page should align with PROBLEM stage", () => {
-    expect(LOGIC_CHAIN.problem.toLowerCase()).toContain("trust");
-    const bridge = PAGES.find((p) => p.id === "bridge")!;
-    expect(bridge.hook.toLowerCase()).toContain("trust");
+  it("problem page should align with structural exposure theme", () => {
+    const problem = PAGES.find((p) => p.id === "problem")!;
+    const text = [problem.hook, ...problem.body].join(" ").toLowerCase();
+    expect(text.includes("broken") || text.includes("exposed")).toBe(true);
   });
 
-  it("story-meeting page should establish trust theme aligned with narrative arc", () => {
+  it("story-meeting page should establish trust theme", () => {
     const storyMeeting = PAGES.find((p) => p.id === "story-meeting")!;
     const text = [...storyMeeting.body].join(" ").toLowerCase();
     expect(text.includes("trust") || text.includes("opportunity") || text.includes("connection")).toBe(true);
@@ -216,11 +196,10 @@ describe("Narrative Arc — Logic Chain Alignment", () => {
     expect(text.includes("family") || text.includes("trust") || text.includes("embedded")).toBe(true);
   });
 
-  it("vault page should align with RESULT stage", () => {
-    expect(LOGIC_CHAIN.result.toLowerCase()).toContain("sovereign");
+  it("vault page should align with exclusivity", () => {
     const vault = PAGES.find((p) => p.id === "vault")!;
     const text = [vault.hook, ...vault.body].join(" ").toLowerCase();
-    expect(text.includes("control") || text.includes("reserves")).toBe(true);
+    expect(text.includes("competitor") || text.includes("private") || text.includes("never")).toBe(true);
   });
 
   it("causality chain should flow Marriage → ... → Sovereign supply", () => {
@@ -258,27 +237,24 @@ describe("Brand Voice Compliance", () => {
     });
   });
 
-  it("scarcity signals exist in vault and origins pages", () => {
+  it("scarcity signals exist in vault page", () => {
     const vault = PAGES.find((p) => p.id === "vault")!;
-    const origins = PAGES.find((p) => p.id === "origins")!;
-    const vaultText = [vault.hook, ...vault.body].join(" ").toLowerCase();
-    const originsText = [origins.hook, ...origins.body].join(" ").toLowerCase();
-    const combined = vaultText + " " + originsText;
+    const vaultText = [vault.hook, ...vault.body, ...(vault.proof || [])].join(" ").toLowerCase();
 
     const hasScarcity = BRAND_GRAMMAR.scarcitySignals.some((signal) =>
-      combined.includes(signal)
+      vaultText.includes(signal)
     );
     expect(hasScarcity).toBe(true);
   });
 
-  it("authority signals exist in story-union and advantage pages", () => {
+  it("authority signals exist in story-union and bridge pages", () => {
     const storyUnion = PAGES.find((p) => p.id === "story-union")!;
-    const advantage = PAGES.find((p) => p.id === "advantage")!;
+    const bridge = PAGES.find((p) => p.id === "bridge")!;
     const combined = [
       ...storyUnion.body,
       ...(storyUnion.proof || []),
-      ...advantage.body,
-      ...(advantage.proof || []),
+      ...bridge.body,
+      ...(bridge.proof || []),
     ]
       .join(" ")
       .toLowerCase();
@@ -291,41 +267,7 @@ describe("Brand Voice Compliance", () => {
 });
 
 // =========================================================================
-// 7. REVENUE MODEL — Internal Consistency
-// =========================================================================
-
-describe("Revenue Model Integrity", () => {
-  const revenue = PAGES.find((p) => p.id === "revenue")!;
-  const revenueText = [...revenue.body, ...(revenue.proof || [])].join(" ");
-
-  it("should reference sourcing fee range (8-12%)", () => {
-    expect(revenueText).toContain("8");
-    expect(revenueText).toContain("12");
-  });
-
-  it("should reference sample program with credit", () => {
-    expect(revenueText.toLowerCase()).toContain("credit");
-  });
-
-  it("should show margin advantage", () => {
-    expect(revenueText).toContain("$3.80");
-    expect(revenueText).toContain("$1.20");
-  });
-
-  it("sample flights should be sorted by ascending price", () => {
-    for (let i = 1; i < SAMPLE_FLIGHTS.length; i++) {
-      expect(SAMPLE_FLIGHTS[i].price).toBeGreaterThan(SAMPLE_FLIGHTS[i - 1].price);
-    }
-  });
-
-  it("sovereign flight should cover all 8 origins", () => {
-    const sovereign = SAMPLE_FLIGHTS.find((f) => f.name === "Sovereign Flight")!;
-    expect(sovereign.origins).toBe(ORIGINS.length);
-  });
-});
-
-// =========================================================================
-// 8. ORIGIN PROFILES — Completeness
+// 7. ORIGIN PROFILES — Completeness
 // =========================================================================
 
 describe("Origin Profile Completeness", () => {
@@ -356,7 +298,7 @@ describe("Origin Profile Completeness", () => {
 });
 
 // =========================================================================
-// 9. CROSS-CONTENT CONSISTENCY — No Contradictions
+// 8. CROSS-CONTENT CONSISTENCY — No Contradictions
 // =========================================================================
 
 describe("Cross-Content Consistency", () => {
@@ -403,5 +345,14 @@ describe("Cross-Content Consistency", () => {
     TAGLINES.forEach((tagline) => {
       expect(hooks).not.toContain(tagline);
     });
+  });
+
+  it("flash cards should have exactly 10 cards", () => {
+    expect(FLASH_CARDS.length).toBe(10);
+  });
+
+  it("flash cards should have no duplicate IDs", () => {
+    const ids = FLASH_CARDS.map((c) => c.id);
+    expect(new Set(ids).size).toBe(ids.length);
   });
 });

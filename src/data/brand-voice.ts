@@ -58,11 +58,15 @@ export const BRAND_GRAMMAR = {
   /** Buyer-facing page IDs where jargon must not leak */
   buyerFacingPages: [
     "cover",
+    "problem",
     "bridge",
-    "shift",
-    "founders",
+    "story-meeting",
+    "story-commitment",
+    "story-union",
     "vault",
-    "decision",
+    "offer",
+    "jamie",
+    "closing",
     "back",
   ],
 

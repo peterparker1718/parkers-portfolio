@@ -23,7 +23,7 @@ export const BRAND = {
   cofounder: "Dr. Fika Ayu Safitri",
   location: "Dampit, East Java, Indonesia",
   contact: {
-    email: "chris@javabridgecoffee.com",
+    email: "christopher@parkersportfolio.info",
     website: "javabridgecoffee.com",
   },
 } as const;
@@ -55,33 +55,50 @@ export const PAGES: PageContent[] = [
   {
     id: "cover",
     title: "JAVA BRIDGE COFFEE",
-    hook: "Two Javas. One Bridge.",
+    hook: "We Are The Source & The Distribution.",
     body: [
-      "We Are The Source & The Distribution.",
+      "The first institutional-grade Indonesian specialty coffee infrastructure platform.",
       "We don't contract the farm. We are the family.",
     ],
     background: "cloth",
   },
 
-  // PAGE 2 — THE BRIDGE (Mission)
+  // PAGE 2 — THE PROBLEM
   {
-    id: "bridge",
-    title: "THE BRIDGE",
-    hook: "The real problem isn't coffee. It's trust at scale across borders.",
+    id: "problem",
+    title: "THE PROBLEM",
+    hook: "The supply chain isn't just broken. It's structurally exposed.",
     body: [
-      "Indonesia can produce extraordinary quality.",
-      "But it cannot reliably translate that value to the U.S. market.",
-      "So instead of forcing Indonesia to change, we changed the structure around it.",
+      "Most importers source Indonesian coffee through six to eight intermediaries.",
+      "Each one adds cost, introduces defects, and erases traceability.",
+      "Then Cyclone Senyar hit Sumatra — and every rented relationship was exposed.",
     ],
     proof: [
-      "SCA Protocol — The Standard",
-      "Agricultural Science — The Method",
-      "Mind / Body / Spirit — The Community Health",
+      "Sumatra: 18% defect rate — 6–8 middlemen — $0.85 margin — Cyclone-exposed",
+      "East Java: 2% defect rate — 0 middlemen — $3.80 margin — Protected",
     ],
     background: "kraft",
   },
 
-  // PAGE 3 — MY STORY: THE MEETING
+  // PAGE 3 — THE BRIDGE
+  {
+    id: "bridge",
+    title: "THE BRIDGE",
+    hook: "We built the bridge that turns origin into permanent infrastructure.",
+    body: [
+      "Java Bridge is a sourcing infrastructure platform — the first of its kind in Indonesian specialty coffee.",
+      "East Java holds unmatched genetic, geographic, and terroir advantages.",
+      "We unlocked them scientifically and structurally.",
+    ],
+    proof: [
+      "The Roots — Permanent residence, spousal visa, Bahasa fluency, 30-year family network",
+      "The Science — PhD genetic selection: +22% yield, -40% input cost, 2% defect rate",
+      "The Market — Enterprise sales, AI-augmented supply chain, institutional execution",
+    ],
+    background: "cloth",
+  },
+
+  // PAGE 4 — MY STORY: THE MEETING
   {
     id: "story-meeting",
     title: "MY STORY",
@@ -95,10 +112,10 @@ export const PAGES: PageContent[] = [
       "New Jersey → Indonesia → East Java",
       "Introduction → Connection → Family",
     ],
-    background: "cloth",
+    background: "kraft",
   },
 
-  // PAGE 4 — MY STORY: THE COMMITMENT
+  // PAGE 5 — MY STORY: THE COMMITMENT
   {
     id: "story-commitment",
     title: "MY STORY",
@@ -112,10 +129,10 @@ export const PAGES: PageContent[] = [
       "Bilingual fluency → Permanent residency → Family integration",
       "Earned trust → Structural access → Sovereign supply",
     ],
-    background: "kraft",
+    background: "cloth",
   },
 
-  // PAGE 5 — MY STORY: THE UNION
+  // PAGE 6 — MY STORY: THE UNION
   {
     id: "story-union",
     title: "MY STORY",
@@ -129,93 +146,74 @@ export const PAGES: PageContent[] = [
       "Genetic audits → Farm-level verification → Environmental control",
       "American market intelligence + Indonesian agricultural science",
     ],
-    background: "cloth",
+    background: "kraft",
   },
 
-  // PAGE 6 — THE VAULT (Supply Positioning)
+  // PAGE 7 — THE VAULT
   {
     id: "vault",
     title: "THE VAULT",
-    hook: "We don't source coffee. We control origin.",
+    hook: "Coffee that doesn't exist for your competitors.",
     body: [
-      "Until now, Indonesia's most strategic coffee reserves were inaccessible.",
-      "Java Bridge opens the vault to private Indonesian reserves.",
-      "You are not buying off a spot list. You are acquiring inventory that does not exist for your competitors.",
+      "East Java's private family reserves have never touched the export market.",
+      "Hybrid varieties combining disease resistance with cup complexity, grown on volcanic soil.",
+      "You are not buying off a spot list — you are acquiring inventory your competitors cannot access.",
     ],
     proof: [
-      "Embedded",
-      "Scientifically optimized",
-      "Structurally defended",
-      "Competitively insulated",
-    ],
-    background: "kraft",
-  },
-
-  // PAGE 7 — THE ADVANTAGE
-  {
-    id: "advantage",
-    title: "THE ADVANTAGE",
-    hook: "East Java holds unmatched genetic, geographic, and terroir advantages.",
-    body: [
-      "Embedded presence in origin.",
-      "PhD agricultural science on every lot.",
-      "Western market intelligence driving positioning.",
-    ],
-    proof: [
-      "Regulatory Compliance — FIKA's credentials + USDA/FDA certification",
-      "Logistics & Shipping — On-ground presence, spousal visa, long-term access",
-      "Quality Control — Tyko's network + FIKA's scientific rigor",
-      "Cultural Bridge — Bilingual liaison, married to local national",
-      "Exclusivity — Family-owned farms, private lots never hitting open market",
+      "Pineapple — Pear — Stevia — Light body — Excellent acidity — Clean finish",
+      "QR-linked lot traceability and genetic audit with every bag",
     ],
     background: "cloth",
   },
 
-  // PAGE 8 — ORIGIN PROFILES
+  // PAGE 8 — THE OFFER
   {
-    id: "origins",
-    title: "THE ORIGINS",
-    hook: "Eight protected reserves. Zero public availability.",
+    id: "offer",
+    title: "THE OFFER",
+    hook: "This is not a catalog. This is a private allocation.",
     body: [
-      "Each origin is selected for genetic distinction, terroir signature, and processing innovation.",
-      "Tasting notes are calibrated for manual brew profiles.",
-      "Roasting to espresso profile may shift the expected flavor architecture.",
+      "Taste the coffee — we ship a complimentary sample of our East Java reserve lot.",
+      "Reserve your allocation — sub-ton annual harvest, first committed partners get priority.",
+      "Build your story — full traceability, genetic profile, and provenance with every bag.",
+    ],
+    proof: [
+      "Direct pricing: no broker margin, no auction volatility",
+      "Every bag ships with farm GPS, processing method, and Dr. Safitri's quality certification",
     ],
     background: "kraft",
   },
 
-  // PAGE 9 — REVENUE ENGINE
+  // PAGE 9 — FOR JAMIE
   {
-    id: "revenue",
-    title: "THE PARTNERSHIP MODEL",
-    hook: "Your economics. Clean, fair, inevitable.",
+    id: "jamie",
+    title: "FOR JAMIE",
+    hook: "You don't buy commodity. You acquire position.",
     body: [
-      "Direct Import Sourcing Fee: 8–12% FOB value (vs. 15–25% traditional brokers).",
-      "Sample & Discovery Program: $75–$150 flights, 100% credited toward first order.",
-      "Origin Consulting: $500 genetic verification, $1,200+ processing optimization.",
+      "This coffee has never appeared on an export manifest — there is no competing offer.",
+      "Sumatra's disruption isn't temporary — infrastructure rebuilds take years.",
+      "First movers write the story. Late arrivals compete on price.",
     ],
     proof: [
-      "Traditional broker margin: $1.20/kg",
-      "Java Bridge margin: $3.80/kg",
-      "Partner savings: $2,600+ per container",
+      "Identity — You acquire position, not product",
+      "Exclusivity — No competing access exists",
+      "Timing — The window is open now, and it's closing",
     ],
     background: "cloth",
   },
 
-  // PAGE 10 — THE DECISION
+  // PAGE 10 — THE CLOSING
   {
-    id: "decision",
-    title: "THE DECISION",
-    hook: "If you partner with Java Bridge, you own stability, access, and leverage.",
+    id: "closing",
+    title: "THE CLOSING",
+    hook: "The era of the fly-in buyer is closing.",
     body: [
-      "If you don't, your competitors will.",
-      "This is the world's first institutional-grade Indonesian specialty coffee infrastructure platform.",
-      "Access becomes power.",
+      "The future belongs to those with roots in the ground.",
+      "Climate disruption accelerates — partners who lock in now get priority allocation.",
+      "Partner with Java Bridge to secure your position in the next great origin shift.",
     ],
     proof: [
       "Control Origin. Command the Market.",
       "Own the Source. Own the Advantage.",
-      "From Commodity to Sovereign Asset.",
     ],
     background: "kraft",
   },
@@ -226,9 +224,9 @@ export const PAGES: PageContent[] = [
     title: "JAVA BRIDGE COFFEE",
     hook: "Direct Trade. PhD Science. Sovereign Access.",
     body: [
-      "Chris Parker — Founder",
-      "chris@javabridgecoffee.com",
-      "javabridgecoffee.com",
+      "Chris Parker | Dr. Fika Ayu Safitri",
+      "christopher@parkersportfolio.info",
+      "East Java to New York. No Middlemen.",
     ],
     background: "cloth",
   },
@@ -338,6 +336,91 @@ export const TAGLINES = [
   "From Commodity to Sovereign Asset.",
   "Access Becomes Power.",
 ] as const;
+
+// ---------------------------------------------------------------------------
+// Flash Card Deck — Quick-Reference Persuasion Cards
+// ---------------------------------------------------------------------------
+
+export interface FlashCard {
+  id: string;
+  title: string;
+  theme: string;
+  front: string;
+  back: string;
+}
+
+export const FLASH_CARDS: FlashCard[] = [
+  {
+    id: "family",
+    title: "THE FAMILY CARD",
+    theme: "Identity & Trust",
+    front: "We don't contract the farm. We are the family.",
+    back: "Permanent spousal visa. Bahasa fluency. 30-year farmer network. Dr. Fika Ayu Safitri, PhD Agricultural Biology.",
+  },
+  {
+    id: "science",
+    title: "THE SCIENCE CARD",
+    theme: "Proof & Credibility",
+    front: "18% defect rate (Sumatra) vs. 2% (East Java).",
+    back: "+22% yield via genetic selection. -40% input cost via bio-slurry. Peer-reviewable. Not marketing claims — science.",
+  },
+  {
+    id: "exclusivity",
+    title: "THE EXCLUSIVITY CARD",
+    theme: "Scarcity & FOMO",
+    front: "No one else in the world currently has this.",
+    back: "Sub-ton annual harvest. Never exported. Pineapple, pear, stevia. You'd be one of maybe three people in America to taste it this year.",
+  },
+  {
+    id: "resilience",
+    title: "THE RESILIENCE CARD",
+    theme: "Risk & Timing",
+    front: "Sumatra is disrupted. East Java is ready.",
+    back: "Cyclone Senyar: 700+ deaths, roads destroyed, prices +15–20%. East Java: untouched. Different geology, different risk.",
+  },
+  {
+    id: "margin",
+    title: "THE MARGIN CARD",
+    theme: "Money & Value",
+    front: "$0.85 → $3.80. That's 4.5x.",
+    back: "Traditional margin vs. Java Bridge direct CP model. Indonesia exports at $2.6K; Switzerland re-sells at $31.2K. We eliminate the 12x middleman markup.",
+  },
+  {
+    id: "geography",
+    title: "THE GEOGRAPHY CARD",
+    theme: "Origin & Terroir",
+    front: "You've been to Bali. You've been to Sumatra. But you haven't been to Dampit.",
+    back: "Volcanic soil. Protected mountain geography immune to Sumatra's cyclone paths. Different geology = different cup = different business.",
+  },
+  {
+    id: "heritage",
+    title: "THE HERITAGE CARD",
+    theme: "Legacy & Prestige",
+    front: "The island that gave coffee its name is about to reclaim it.",
+    back: "Indonesia peaked at 12.5M bags. Java: the word itself means coffee. The 1700s dynasty is back — this time with science, not colonialism.",
+  },
+  {
+    id: "platform",
+    title: "THE PLATFORM CARD",
+    theme: "Infrastructure & Scale",
+    front: "We Are The Source & The Distribution.",
+    back: "First institutional-grade Indonesian specialty coffee infrastructure platform. Embedded presence + PhD science + Western market intelligence.",
+  },
+  {
+    id: "trust",
+    title: "THE TRUST CARD",
+    theme: "Low-Pressure Close",
+    front: "Taste the coffee. That's it.",
+    back: "If it's not worth your time, no hard feelings. But if it is — you get exclusive access to lots that don't exist on anyone else's menu.",
+  },
+  {
+    id: "future",
+    title: "THE FUTURE CARD",
+    theme: "Vision & Urgency",
+    front: "The era of the fly-in buyer is closing.",
+    back: "The future belongs to those with roots in the ground. Climate disruption accelerates. Partners who lock in now get priority allocation.",
+  },
+];
 
 // ---------------------------------------------------------------------------
 // Messaging Coherence Rules (for test validation)

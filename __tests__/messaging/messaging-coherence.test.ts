@@ -10,10 +10,10 @@
  * 4. Founder appears where required
  * 5. Logic chain flows correctly
  * 6. No messaging contradictions
- * 7. Revenue model coherence
+ * 7. Flash card integrity
  */
 
-import { BRAND, PAGES, ORIGINS, SAMPLE_FLIGHTS, TAGLINES } from "@/data/content";
+import { BRAND, PAGES, ORIGINS, SAMPLE_FLIGHTS, TAGLINES, FLASH_CARDS } from "@/data/content";
 import {
   FRONT_PAGE_CONCEPTS,
   LOGIC_CHAIN,
@@ -40,7 +40,7 @@ describe("Page Hierarchy: 1-liner → 3-liner → visual", () => {
   });
 
   it("proof/visual layer should exist on strategic pages", () => {
-    const pagesNeedingProof = ["bridge", "story-meeting", "story-commitment", "story-union", "vault", "advantage", "revenue", "decision"];
+    const pagesNeedingProof = ["problem", "bridge", "story-meeting", "story-commitment", "story-union", "vault", "offer", "jamie", "closing"];
     pagesNeedingProof.forEach((id) => {
       const page = PAGES.find((p) => p.id === id);
       expect(page).toBeDefined();
@@ -91,10 +91,16 @@ describe("Brand Name Consistency", () => {
 });
 
 describe("Narrative Logic Chain", () => {
-  it("bridge page should address the trust problem", () => {
+  it("problem page should address the broken supply chain", () => {
+    const problem = PAGES.find((p) => p.id === "problem")!;
+    const text = [problem.hook, ...problem.body].join(" ").toLowerCase();
+    expect(text.includes("broken") || text.includes("exposed") || text.includes("intermediaries")).toBe(true);
+  });
+
+  it("bridge page should establish infrastructure solution", () => {
     const bridge = PAGES.find((p) => p.id === "bridge")!;
     const text = [bridge.hook, ...bridge.body].join(" ").toLowerCase();
-    expect(text).toContain("trust");
+    expect(text.includes("infrastructure") || text.includes("bridge") || text.includes("platform")).toBe(true);
   });
 
   it("story-meeting page should establish the trust/opportunity theme", () => {
@@ -128,60 +134,32 @@ describe("Narrative Logic Chain", () => {
     ).toBe(true);
   });
 
-  it("vault page should establish origin control", () => {
+  it("vault page should establish origin exclusivity", () => {
     const vault = PAGES.find((p) => p.id === "vault")!;
     const text = [vault.hook, ...vault.body].join(" ").toLowerCase();
     expect(
-      text.includes("control") ||
-      text.includes("origin") ||
-      text.includes("vault") ||
-      text.includes("reserves")
-    ).toBe(true);
-  });
-
-  it("decision page should create urgency", () => {
-    const decision = PAGES.find((p) => p.id === "decision")!;
-    const text = [decision.hook, ...decision.body].join(" ").toLowerCase();
-    expect(
       text.includes("competitor") ||
-      text.includes("partner") ||
-      text.includes("leverage") ||
-      text.includes("power")
+      text.includes("private") ||
+      text.includes("reserve") ||
+      text.includes("never")
     ).toBe(true);
   });
-});
 
-describe("Revenue Model Coherence", () => {
-  it("revenue page should mention sourcing fee percentage", () => {
-    const revenue = PAGES.find((p) => p.id === "revenue")!;
-    const text = [...revenue.body, ...(revenue.proof || [])].join(" ");
-    expect(text).toContain("8");
-    expect(text).toContain("12");
+  it("offer page should present the sample program", () => {
+    const offer = PAGES.find((p) => p.id === "offer")!;
+    const text = [offer.hook, ...offer.body].join(" ").toLowerCase();
+    expect(text.includes("sample") || text.includes("taste") || text.includes("allocation")).toBe(true);
   });
 
-  it("revenue page should show margin advantage over brokers", () => {
-    const revenue = PAGES.find((p) => p.id === "revenue")!;
-    const text = [...revenue.body, ...(revenue.proof || [])].join(" ");
+  it("closing page should create urgency", () => {
+    const closing = PAGES.find((p) => p.id === "closing")!;
+    const text = [closing.hook, ...closing.body].join(" ").toLowerCase();
     expect(
-      text.includes("broker") ||
-      text.includes("$3.80") ||
-      text.includes("$1.20") ||
-      text.includes("$2,600")
+      text.includes("closing") ||
+      text.includes("future") ||
+      text.includes("partner") ||
+      text.includes("position")
     ).toBe(true);
-  });
-
-  it("sample flights should be referenced in revenue model", () => {
-    const revenue = PAGES.find((p) => p.id === "revenue")!;
-    const text = [...revenue.body].join(" ").toLowerCase();
-    expect(text.includes("sample") || text.includes("flight") || text.includes("$75") || text.includes("$150")).toBe(true);
-  });
-
-  it("sample flights should all credit toward first order", () => {
-    // This is a business rule: every sample flight credits toward first order
-    // Validated by the presence of credit language in the content
-    const revenue = PAGES.find((p) => p.id === "revenue")!;
-    const text = [...revenue.body].join(" ").toLowerCase();
-    expect(text.includes("credit")).toBe(true);
   });
 });
 
@@ -310,5 +288,12 @@ describe("Cross-Content Consistency", () => {
         allText.toLowerCase().includes("chris parker")
       ).toBe(true);
     });
+  });
+
+  it("flash cards should cover key themes", () => {
+    const themes = FLASH_CARDS.map((c) => c.theme.toLowerCase());
+    expect(themes.some((t) => t.includes("trust"))).toBe(true);
+    expect(themes.some((t) => t.includes("scarcity"))).toBe(true);
+    expect(themes.some((t) => t.includes("value") || t.includes("money"))).toBe(true);
   });
 });

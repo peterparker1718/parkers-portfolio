@@ -1,9 +1,8 @@
 /**
  * No Jargon Leak Test
  *
- * Validates that buyer-facing pages (cover, bridge, decision, etc.)
- * do NOT contain internal/operational terms like "FOB", "SKU", "MOQ"
- * that belong only on the revenue page.
+ * Validates that buyer-facing pages do NOT contain
+ * internal/operational terms like "FOB", "SKU", "MOQ".
  *
  * Jamie sees the story pages; operational details stay contained.
  */
@@ -38,24 +37,22 @@ describe("No Jargon Leak — Buyer-Facing Pages", () => {
     }
   );
 
-  it("revenue page is allowed to contain operational terms", () => {
-    const revenue = PAGES.find((p) => p.id === "revenue")!;
-    expect(revenue).toBeDefined();
-    const text = [...revenue.body, ...(revenue.proof || [])].join(" ");
-    // Revenue page should contain at least some financial specifics
-    expect(text).toContain("$");
+  it("offer page is allowed to contain allocation terms", () => {
+    const offer = PAGES.find((p) => p.id === "offer")!;
+    expect(offer).toBeDefined();
+    const text = [...offer.body, ...(offer.proof || [])].join(" ").toLowerCase();
+    expect(text.includes("allocation") || text.includes("sample") || text.includes("pricing")).toBe(true);
   });
 
-  it("origins page is allowed to contain technical terms", () => {
-    const origins = PAGES.find((p) => p.id === "origins")!;
-    expect(origins).toBeDefined();
-    // Origins can mention processing methods, altitude, etc.
-    const text = [...origins.body].join(" ").toLowerCase();
+  it("bridge page is allowed to contain technical terms", () => {
+    const bridge = PAGES.find((p) => p.id === "bridge")!;
+    expect(bridge).toBeDefined();
+    const text = [...bridge.body, ...(bridge.proof || [])].join(" ").toLowerCase();
     expect(
       text.includes("genetic") ||
       text.includes("terroir") ||
-      text.includes("processing") ||
-      text.includes("brew")
+      text.includes("infrastructure") ||
+      text.includes("science")
     ).toBe(true);
   });
 });

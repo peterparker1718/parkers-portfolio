@@ -4,9 +4,9 @@
  * Validates that the booklet narrative always moves
  * from problem → solution, never the reverse.
  *
- * The MY STORY pages establish trust and family as the foundation.
- * The vault page establishes "permanent access" as the solution.
- * These must never appear in contradiction.
+ * The problem page establishes the broken supply chain.
+ * The MY STORY pages establish trust and family.
+ * The vault page establishes exclusive access as the solution.
  */
 
 import { PAGES } from "@/data/content";
@@ -15,7 +15,6 @@ import { BRAND_GRAMMAR } from "@/data/brand-voice";
 const { narrativeFlowPairs } = BRAND_GRAMMAR;
 
 describe("Narrative Flow — Problem → Solution Direction", () => {
-  // Pages are ordered by their position in the booklet
   const pageOrder = PAGES.map((p) => p.id);
 
   it.each(
@@ -36,7 +35,6 @@ describe("Narrative Flow — Problem → Solution Direction", () => {
         }
       });
 
-      // If both words exist, problem should appear before or at the same page as solution
       if (firstProblemIndex !== -1 && firstSolutionIndex !== -1) {
         expect(firstProblemIndex).toBeLessThanOrEqual(firstSolutionIndex);
       }
@@ -44,27 +42,28 @@ describe("Narrative Flow — Problem → Solution Direction", () => {
   );
 });
 
-describe("Narrative Flow — MY STORY Pages vs. Vault Page", () => {
-  const storyMeeting = PAGES.find((p) => p.id === "story-meeting")!;
+describe("Narrative Flow — Problem Page vs. Vault Page", () => {
+  const problem = PAGES.find((p) => p.id === "problem")!;
   const vault = PAGES.find((p) => p.id === "vault")!;
-  const storyMeetingIdx = PAGES.findIndex((p) => p.id === "story-meeting");
+  const problemIdx = PAGES.findIndex((p) => p.id === "problem");
   const vaultIdx = PAGES.findIndex((p) => p.id === "vault");
 
-  it("story-meeting page should come before vault page", () => {
-    expect(storyMeetingIdx).toBeLessThan(vaultIdx);
+  it("problem page should come before vault page", () => {
+    expect(problemIdx).toBeLessThan(vaultIdx);
   });
 
-  it("story-meeting page should establish the trust/opportunity theme", () => {
-    const text = [storyMeeting.hook, ...storyMeeting.body].join(" ").toLowerCase();
-    expect(text.includes("trust") || text.includes("opportunity") || text.includes("connection")).toBe(true);
+  it("problem page should frame the broken supply chain", () => {
+    const text = [problem.hook, ...problem.body].join(" ").toLowerCase();
+    expect(text.includes("broken") || text.includes("exposed") || text.includes("intermediaries")).toBe(true);
   });
 
-  it("vault page should frame the solution (control/permanent)", () => {
+  it("vault page should frame the exclusivity solution", () => {
     const text = [vault.hook, ...vault.body].join(" ").toLowerCase();
     expect(
-      text.includes("control") ||
-      text.includes("reserves") ||
-      text.includes("acquiring")
+      text.includes("competitor") ||
+      text.includes("private") ||
+      text.includes("reserve") ||
+      text.includes("never")
     ).toBe(true);
   });
 });
@@ -74,7 +73,7 @@ describe("Narrative Flow — Bridge → MY STORY → Vault sequence", () => {
   const storyCommitmentIdx = PAGES.findIndex((p) => p.id === "story-commitment");
   const storyUnionIdx = PAGES.findIndex((p) => p.id === "story-union");
 
-  it("bridge (problem) should come before story-commitment (inflection)", () => {
+  it("bridge (platform) should come before story-commitment (inflection)", () => {
     expect(bridgeIdx).toBeLessThan(storyCommitmentIdx);
   });
 
@@ -83,9 +82,9 @@ describe("Narrative Flow — Bridge → MY STORY → Vault sequence", () => {
   });
 });
 
-describe("Narrative Flow — Decision page is penultimate", () => {
-  it("decision should be the second-to-last page (before back cover)", () => {
-    const decisionIdx = PAGES.findIndex((p) => p.id === "decision");
-    expect(decisionIdx).toBe(PAGES.length - 2);
+describe("Narrative Flow — Closing page is penultimate", () => {
+  it("closing should be the second-to-last page (before back cover)", () => {
+    const closingIdx = PAGES.findIndex((p) => p.id === "closing");
+    expect(closingIdx).toBe(PAGES.length - 2);
   });
 });
