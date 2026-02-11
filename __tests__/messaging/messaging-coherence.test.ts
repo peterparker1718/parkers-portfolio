@@ -40,7 +40,7 @@ describe("Page Hierarchy: 1-liner → 3-liner → visual", () => {
   });
 
   it("proof/visual layer should exist on strategic pages", () => {
-    const pagesNeedingProof = ["bridge", "shift", "founders", "science", "vault", "advantage", "revenue", "decision"];
+    const pagesNeedingProof = ["bridge", "story-meeting", "story-commitment", "story-union", "vault", "advantage", "revenue", "decision"];
     pagesNeedingProof.forEach((id) => {
       const page = PAGES.find((p) => p.id === id);
       expect(page).toBeDefined();
@@ -77,15 +77,9 @@ describe("Brand Name Consistency", () => {
     expect(back.title).toContain("JAVA BRIDGE");
   });
 
-  it("founder name should appear on founders page", () => {
-    const founders = PAGES.find((p) => p.id === "founders")!;
-    const allText = [founders.hook, ...founders.body, ...(founders.proof || [])].join(" ");
-    expect(allText).toContain("Chris Parker");
-  });
-
-  it("cofounder name should appear on founders page", () => {
-    const founders = PAGES.find((p) => p.id === "founders")!;
-    const allText = [founders.hook, ...founders.body, ...(founders.proof || [])].join(" ");
+  it("cofounder name should appear on story-union page", () => {
+    const storyUnion = PAGES.find((p) => p.id === "story-union")!;
+    const allText = [storyUnion.hook, ...storyUnion.body, ...(storyUnion.proof || [])].join(" ");
     expect(allText.toLowerCase()).toContain("fika");
   });
 
@@ -103,35 +97,34 @@ describe("Narrative Logic Chain", () => {
     expect(text).toContain("trust");
   });
 
-  it("shift page should address transactional vs. sovereign model", () => {
-    const shift = PAGES.find((p) => p.id === "shift")!;
-    const text = [shift.hook, ...shift.body].join(" ").toLowerCase();
+  it("story-meeting page should establish the trust/opportunity theme", () => {
+    const storyMeeting = PAGES.find((p) => p.id === "story-meeting")!;
+    const text = [storyMeeting.hook, ...storyMeeting.body].join(" ").toLowerCase();
     expect(
-      text.includes("transactional") ||
-      text.includes("rented") ||
-      text.includes("fly-in") ||
-      text.includes("sovereign")
+      text.includes("trust") ||
+      text.includes("opportunity") ||
+      text.includes("connection")
     ).toBe(true);
   });
 
-  it("founders page should establish embedded presence", () => {
-    const founders = PAGES.find((p) => p.id === "founders")!;
-    const text = [founders.hook, ...founders.body].join(" ").toLowerCase();
+  it("story-commitment page should establish embedded presence", () => {
+    const storyCommitment = PAGES.find((p) => p.id === "story-commitment")!;
+    const text = [storyCommitment.hook, ...storyCommitment.body].join(" ").toLowerCase();
     expect(
-      text.includes("married") ||
-      text.includes("embedded") ||
-      text.includes("family")
+      text.includes("family") ||
+      text.includes("earned") ||
+      text.includes("trust")
     ).toBe(true);
   });
 
-  it("science page should establish scientific credibility", () => {
-    const science = PAGES.find((p) => p.id === "science")!;
-    const text = [science.hook, ...science.body, ...(science.proof || [])].join(" ").toLowerCase();
+  it("story-union page should establish scientific credibility", () => {
+    const storyUnion = PAGES.find((p) => p.id === "story-union")!;
+    const text = [storyUnion.hook, ...storyUnion.body, ...(storyUnion.proof || [])].join(" ").toLowerCase();
     expect(
       text.includes("phd") ||
       text.includes("genetic") ||
       text.includes("scientific") ||
-      text.includes("defect")
+      text.includes("science")
     ).toBe(true);
   });
 

@@ -4,7 +4,7 @@
  * Validates that the booklet narrative always moves
  * from problem → solution, never the reverse.
  *
- * The shift page establishes "rented access" as the problem.
+ * The MY STORY pages establish trust and family as the foundation.
  * The vault page establishes "permanent access" as the solution.
  * These must never appear in contradiction.
  */
@@ -44,19 +44,19 @@ describe("Narrative Flow — Problem → Solution Direction", () => {
   );
 });
 
-describe("Narrative Flow — Shift Page vs. Vault Page", () => {
-  const shift = PAGES.find((p) => p.id === "shift")!;
+describe("Narrative Flow — MY STORY Pages vs. Vault Page", () => {
+  const storyMeeting = PAGES.find((p) => p.id === "story-meeting")!;
   const vault = PAGES.find((p) => p.id === "vault")!;
-  const shiftIdx = PAGES.findIndex((p) => p.id === "shift");
+  const storyMeetingIdx = PAGES.findIndex((p) => p.id === "story-meeting");
   const vaultIdx = PAGES.findIndex((p) => p.id === "vault");
 
-  it("shift page should come before vault page", () => {
-    expect(shiftIdx).toBeLessThan(vaultIdx);
+  it("story-meeting page should come before vault page", () => {
+    expect(storyMeetingIdx).toBeLessThan(vaultIdx);
   });
 
-  it("shift page should frame the problem (rented/transactional)", () => {
-    const text = [shift.hook, ...shift.body].join(" ").toLowerCase();
-    expect(text.includes("rented") || text.includes("transactional")).toBe(true);
+  it("story-meeting page should establish the trust/opportunity theme", () => {
+    const text = [storyMeeting.hook, ...storyMeeting.body].join(" ").toLowerCase();
+    expect(text.includes("trust") || text.includes("opportunity") || text.includes("connection")).toBe(true);
   });
 
   it("vault page should frame the solution (control/permanent)", () => {
@@ -69,17 +69,17 @@ describe("Narrative Flow — Shift Page vs. Vault Page", () => {
   });
 });
 
-describe("Narrative Flow — Bridge → Founders → Science sequence", () => {
+describe("Narrative Flow — Bridge → MY STORY → Vault sequence", () => {
   const bridgeIdx = PAGES.findIndex((p) => p.id === "bridge");
-  const foundersIdx = PAGES.findIndex((p) => p.id === "founders");
-  const scienceIdx = PAGES.findIndex((p) => p.id === "science");
+  const storyCommitmentIdx = PAGES.findIndex((p) => p.id === "story-commitment");
+  const storyUnionIdx = PAGES.findIndex((p) => p.id === "story-union");
 
-  it("bridge (problem) should come before founders (inflection)", () => {
-    expect(bridgeIdx).toBeLessThan(foundersIdx);
+  it("bridge (problem) should come before story-commitment (inflection)", () => {
+    expect(bridgeIdx).toBeLessThan(storyCommitmentIdx);
   });
 
-  it("founders (inflection) should come before science (method)", () => {
-    expect(foundersIdx).toBeLessThan(scienceIdx);
+  it("story-commitment (inflection) should come before story-union (method)", () => {
+    expect(storyCommitmentIdx).toBeLessThan(storyUnionIdx);
   });
 });
 

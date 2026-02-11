@@ -81,54 +81,53 @@ export const PAGES: PageContent[] = [
     background: "kraft",
   },
 
-  // PAGE 3 — THE SHIFT
+  // PAGE 3 — MY STORY: THE MEETING
   {
-    id: "shift",
-    title: "THE SHIFT",
-    hook: "The era of the fly-in buyer is closing.",
+    id: "story-meeting",
+    title: "MY STORY",
+    hook: "I met my wife in 2021, and that moment reshaped everything.",
     body: [
-      "For decades, buyers flew in, shook hands, signed contracts, and left.",
-      "That access was rented — not owned.",
-      "Java Bridge replaces transactional trade with sovereign infrastructure.",
+      "I was born in New Jersey — raised to believe opportunity follows effort.",
+      "Indonesia taught me something different: opportunity follows trust.",
+      "What began as a simple introduction became a permanent connection.",
     ],
     proof: [
-      "Fly-in buyers → transactional trade → rented access",
-      "Embedded family → scientific infrastructure → sovereign supply",
+      "New Jersey → Indonesia → East Java",
+      "Introduction → Connection → Family",
     ],
     background: "cloth",
   },
 
-  // PAGE 4 — THE FOUNDERS
+  // PAGE 4 — MY STORY: THE COMMITMENT
   {
-    id: "founders",
-    title: "THE FOUNDERS",
-    hook: "Most buyers visit Indonesia. I married into it.",
+    id: "story-commitment",
+    title: "MY STORY",
+    hook: "I did not arrive as a buyer. I arrived as family.",
     body: [
-      "Chris Parker — U.S. coffee entrepreneur, bilingual liaison, permanent Indonesian resident.",
-      "Dr. Fika Ayu Safitri — PhD Agricultural Biology, multi-generational farming family, Dampit, East Java.",
-      "Together: the industry's only U.S.–Indonesian executive union.",
+      "I learned the language. I stayed. I earned trust.",
+      "That commitment opened doors no exporter, broker, or buyer could ever purchase.",
+      "Over time, I built a life inside one of Indonesia's most protected coffee ecosystems.",
     ],
     proof: [
-      "Marriage → Embedded residency → Family integration",
-      "Permanent trust → Structural access → Sovereign supply",
+      "Bilingual fluency → Permanent residency → Family integration",
+      "Earned trust → Structural access → Sovereign supply",
     ],
     background: "kraft",
   },
 
-  // PAGE 5 — THE SCIENCE
+  // PAGE 5 — MY STORY: THE UNION
   {
-    id: "science",
-    title: "THE METHOD",
-    hook: "A unique system no broker can duplicate.",
+    id: "story-union",
+    title: "MY STORY",
+    hook: "Two worlds. One bridge. Built by marriage and science.",
     body: [
-      "PhD-level genetic verification reduces defect rates from 18% (Sumatra average) to 2%.",
-      "Processing optimization increases yield by 22% through scientific selection.",
-      "Every lot is embedded, scientifically optimized, structurally defended, and competitively insulated.",
+      "Dr. Fika Ayu Safitri — PhD agricultural biologist, multi-generational East Java farming family.",
+      "Together, we unite scientific rigor with lived agricultural knowledge at origin.",
+      "Java Bridge exists because my life now spans two worlds.",
     ],
     proof: [
-      "Defect rate: 2% (vs. 18% industry)",
-      "Yield improvement: +22%",
-      "Genetic verification per lot",
+      "Genetic audits → Farm-level verification → Environmental control",
+      "American market intelligence + Indonesian agricultural science",
     ],
     background: "cloth",
   },

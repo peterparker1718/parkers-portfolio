@@ -145,8 +145,8 @@ describe("Period Density Analysis — All Hooks", () => {
     const coverAnalysis = analyses.find((a) => a.pageId === "cover")!;
     expect(coverAnalysis.rhythm).toBe("binary-impact");
 
-    const shiftAnalysis = analyses.find((a) => a.pageId === "shift")!;
-    expect(shiftAnalysis.rhythm).toBe("declarative-power");
+    const storyMeetingAnalysis = analyses.find((a) => a.pageId === "story-meeting")!;
+    expect(storyMeetingAnalysis.rhythm).toBe("declarative-power");
 
     const backAnalysis = analyses.find((a) => a.pageId === "back")!;
     expect(backAnalysis.rhythm).toBe("triadic-authority");
@@ -172,7 +172,7 @@ describe("Cognitive Hierarchy — Full Booklet", () => {
   });
 
   it("strategic pages have proof layer (Layer 3)", () => {
-    const strategicIds = ["bridge", "shift", "founders", "science", "vault", "advantage", "revenue", "decision"];
+    const strategicIds = ["bridge", "story-meeting", "story-commitment", "story-union", "vault", "advantage", "revenue", "decision"];
     strategicIds.forEach((id) => {
       const page = PAGES.find((p) => p.id === id)!;
       expect(page.proof).toBeDefined();
@@ -203,18 +203,17 @@ describe("Narrative Arc — Logic Chain Alignment", () => {
     expect(bridge.hook.toLowerCase()).toContain("trust");
   });
 
-  it("shift page should align with FAILURE stage", () => {
-    expect(LOGIC_CHAIN.failure.toLowerCase()).toContain("rented");
-    const shift = PAGES.find((p) => p.id === "shift")!;
-    const text = [...shift.body].join(" ").toLowerCase();
-    expect(text).toContain("rented");
+  it("story-meeting page should establish trust theme aligned with narrative arc", () => {
+    const storyMeeting = PAGES.find((p) => p.id === "story-meeting")!;
+    const text = [...storyMeeting.body].join(" ").toLowerCase();
+    expect(text.includes("trust") || text.includes("opportunity") || text.includes("connection")).toBe(true);
   });
 
-  it("founders page should align with INFLECTION stage", () => {
+  it("story-commitment page should establish embedded presence (INFLECTION)", () => {
     expect(LOGIC_CHAIN.inflection).toContain("Chris Parker");
-    const founders = PAGES.find((p) => p.id === "founders")!;
-    const text = [...founders.body].join(" ");
-    expect(text).toContain("Chris Parker");
+    const storyCommitment = PAGES.find((p) => p.id === "story-commitment")!;
+    const text = [...storyCommitment.body].join(" ").toLowerCase();
+    expect(text.includes("family") || text.includes("trust") || text.includes("embedded")).toBe(true);
   });
 
   it("vault page should align with RESULT stage", () => {
@@ -272,12 +271,12 @@ describe("Brand Voice Compliance", () => {
     expect(hasScarcity).toBe(true);
   });
 
-  it("authority signals exist in science and advantage pages", () => {
-    const science = PAGES.find((p) => p.id === "science")!;
+  it("authority signals exist in story-union and advantage pages", () => {
+    const storyUnion = PAGES.find((p) => p.id === "story-union")!;
     const advantage = PAGES.find((p) => p.id === "advantage")!;
     const combined = [
-      ...science.body,
-      ...(science.proof || []),
+      ...storyUnion.body,
+      ...(storyUnion.proof || []),
       ...advantage.body,
       ...(advantage.proof || []),
     ]

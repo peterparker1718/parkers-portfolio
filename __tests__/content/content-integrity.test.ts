@@ -80,9 +80,9 @@ describe("Page Content Integrity", () => {
     const required = [
       "cover",
       "bridge",
-      "shift",
-      "founders",
-      "science",
+      "story-meeting",
+      "story-commitment",
+      "story-union",
       "vault",
       "advantage",
       "origins",
