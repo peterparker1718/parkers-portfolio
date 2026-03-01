@@ -55,7 +55,7 @@ export const PAGES: PageContent[] = [
   {
     id: "cover",
     title: "JAVA BRIDGE COFFEE",
-    hook: "We Are The Source & The Distribution.",
+    hook: "Most Buyers Visit Indonesia. I Married Into It.",
     body: [
       "The first institutional-grade Indonesian specialty coffee infrastructure platform.",
       "We don't contract the farm. We are the family.",

@@ -1,3 +1,4 @@
+import CoverPage from "@/components/CoverPage";
 import PageSection from "@/components/PageSection";
 import { PAGES, TAGLINES, PALETTE } from "@/data/content";
 
@@ -5,6 +6,11 @@ export default function Home() {
   return (
     <main>
       {PAGES.map((page) => {
+        // Cover page gets the full visual treatment
+        if (page.id === "cover") {
+          return <CoverPage key={page.id} />;
+        }
+
         // Closing page gets taglines
         if (page.id === "closing") {
           return (

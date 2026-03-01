@@ -46,9 +46,9 @@ describe("Front Cover (Page 1) — Textual Layout", () => {
     expect(cover.title).toBe("JAVA BRIDGE COFFEE");
   });
 
-  it("cover hook should be the brand tagline", () => {
-    expect(cover.hook).toContain("Source");
-    expect(cover.hook).toContain("Distribution");
+  it("cover hook should establish the marriage-as-access thesis", () => {
+    expect(cover.hook).toContain("Married");
+    expect(cover.hook).toContain("Indonesia");
   });
 
   it("cover body should contain family statement", () => {
