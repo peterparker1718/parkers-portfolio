@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java Bridge Coffee — From Jersey to Java</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=Roboto+Mono:wght@400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cloth: #342C22;
+    --kraft: #d4896b;
+    --gold: #c9a84c;
+    --cream: #f5f5dc;
+    --espresso: #4a3528;
+    --terracotta: #c97d5d;
+  }
+
+  body {
+    background: #1a1612;
+    font-family: 'Source Sans 3', sans-serif;
+    color: var(--cream);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+    padding: 40px 20px;
+  }
+
+  .page-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  /* ===== FRONT PAGE — 6x4 GRID ===== */
+  .front-page {
+    width: 840px;
+    height: 560px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--cloth);
+    border: 1px solid var(--gold);
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .cell {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* FRONT ROW 1 — Title Bar */
+  .f-title {
+    grid-column: 1 / 4;
+    grid-row: 1;
+    background: var(--cloth);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .f-title h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .f-title .tagline {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.2;
+  }
+
+  .f-jersey {
+    grid-column: 4 / 5;
+    grid-row: 1;
+    background: var(--espresso);
+    text-align: center;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .f-jersey .geo-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 4px;
+  }
+  .f-jersey .geo-place {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--cream);
+  }
+
+  .f-arrow {
+    grid-column: 5;
+    grid-row: 1;
+    background: var(--cloth);
+    text-align: center;
+    font-size: 20px;
+    color: var(--gold);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .f-java {
+    grid-column: 6;
+    grid-row: 1;
+    background: var(--espresso);
+    text-align: center;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .f-java .geo-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 4px;
+  }
+  .f-java .geo-place {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--cream);
+  }
+
+  /* FRONT ROW 2 — Three Story Chapters */
+  .f-meeting {
+    grid-column: 1 / 3;
+    grid-row: 2;
+    background: var(--kraft);
+    color: var(--espresso);
+    border-right: 1px solid rgba(74,53,40,0.3);
+  }
+  .f-meeting .chapter-num {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--cloth);
+    opacity: 0.6;
+    margin-bottom: 4px;
+  }
+  .f-meeting .chapter-hook {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 6px;
+    color: var(--cloth);
+  }
+  .f-meeting .chapter-body {
+    font-size: 10px;
+    line-height: 1.5;
+    color: var(--espresso);
+    font-weight: 300;
+  }
+
+  .f-commitment {
+    grid-column: 3 / 5;
+    grid-row: 2;
+    background: var(--cloth);
+    border-right: 1px solid rgba(201,168,76,0.15);
+  }
+  .f-commitment .chapter-num {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    opacity: 0.6;
+    margin-bottom: 4px;
+  }
+  .f-commitment .chapter-hook {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 6px;
+    color: var(--cream);
+  }
+  .f-commitment .chapter-body {
+    font-size: 10px;
+    line-height: 1.5;
+    color: var(--cream);
+    font-weight: 300;
+    opacity: 0.85;
+  }
+
+  .f-union {
+    grid-column: 5 / 7;
+    grid-row: 2;
+    background: var(--kraft);
+    color: var(--espresso);
+  }
+  .f-union .chapter-num {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--cloth);
+    opacity: 0.6;
+    margin-bottom: 4px;
+  }
+  .f-union .chapter-hook {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 6px;
+    color: var(--cloth);
+  }
+  .f-union .chapter-body {
+    font-size: 10px;
+    line-height: 1.5;
+    color: var(--espresso);
+    font-weight: 300;
+  }
+
+  /* FRONT ROW 3 — Proof Grid (6 cells) */
+  .proof-cell {
+    text-align: center;
+    padding: 12px 8px;
+  }
+  .proof-cell .proof-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .proof-cell .proof-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+
+  .f-p1 { grid-column: 1; grid-row: 3; background: var(--cloth); }
+  .f-p1 .proof-number { color: var(--gold); }
+  .f-p1 .proof-label { color: var(--cream); opacity: 0.7; }
+
+  .f-p2 { grid-column: 2; grid-row: 3; background: var(--espresso); }
+  .f-p2 .proof-number { color: var(--cream); }
+  .f-p2 .proof-label { color: var(--kraft); }
+
+  .f-p3 { grid-column: 3; grid-row: 3; background: var(--cloth); }
+  .f-p3 .proof-number { color: var(--gold); }
+  .f-p3 .proof-label { color: var(--cream); opacity: 0.7; }
+
+  .f-p4 { grid-column: 4; grid-row: 3; background: var(--espresso); }
+  .f-p4 .proof-number { color: var(--cream); }
+  .f-p4 .proof-label { color: var(--kraft); }
+
+  .f-p5 { grid-column: 5; grid-row: 3; background: var(--cloth); }
+  .f-p5 .proof-number { color: var(--gold); }
+  .f-p5 .proof-label { color: var(--cream); opacity: 0.7; }
+
+  .f-p6 { grid-column: 6; grid-row: 3; background: var(--espresso); }
+  .f-p6 .proof-number { color: var(--cream); }
+  .f-p6 .proof-label { color: var(--kraft); }
+
+  /* FRONT ROW 4 — Tagline Bar */
+  .f-tagline {
+    grid-column: 1 / 5;
+    grid-row: 4;
+    background: var(--kraft);
+    border-top: 2px solid var(--gold);
+  }
+  .f-tagline .tag-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--cloth);
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+  .f-tagline .tag-sub {
+    font-size: 9px;
+    font-weight: 300;
+    color: var(--espresso);
+    line-height: 1.4;
+  }
+
+  .f-signature {
+    grid-column: 5 / 7;
+    grid-row: 4;
+    background: var(--cloth);
+    text-align: right;
+    border-top: 2px solid var(--gold);
+  }
+  .f-signature .sig-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    color: var(--cream);
+    margin-bottom: 2px;
+  }
+  .f-signature .sig-title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 8px;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+  }
+  .f-signature .sig-date {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 8px;
+    color: var(--terracotta);
+    letter-spacing: 0.1em;
+    margin-top: 6px;
+  }
+
+
+  /* ===== BACK PAGE — 6x4 GRID (JAMIE'S PAIN POINTS) ===== */
+  .back-page {
+    width: 840px;
+    height: 560px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--cloth);
+    border: 1px solid var(--gold);
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  /* BACK ROW 1 — Header + For Jamie */
+  .b-header {
+    grid-column: 1 / 4;
+    grid-row: 1;
+    background: var(--cloth);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .b-header .b-supertitle {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 6px;
+  }
+  .b-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.2;
+  }
+  .b-header .b-subtitle {
+    font-size: 10px;
+    color: var(--cream);
+    opacity: 0.7;
+    margin-top: 4px;
+    font-weight: 300;
+  }
+
+  .b-profile {
+    grid-column: 4 / 7;
+    grid-row: 1;
+    background: var(--espresso);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .b-profile .profile-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .b-profile .profile-item {
+    font-size: 9px;
+    color: var(--cream);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .b-profile .profile-item strong {
+    color: var(--kraft);
+    font-weight: 600;
+  }
+
+  /* BACK ROW 2 — Four Pain Points */
+  .pain-cell {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .pain-cell .pain-icon {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  .pain-cell .pain-label {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .pain-cell .pain-problem {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .pain-cell .pain-solution {
+    font-size: 9px;
+    line-height: 1.5;
+    font-weight: 300;
+    opacity: 0.85;
+  }
+
+  .b-pain1 {
+    grid-column: 1 / 4;
+    grid-row: 2;
+    background: var(--kraft);
+    color: var(--espresso);
+  }
+  .b-pain1 .pain-label { color: var(--cloth); }
+  .b-pain1 .pain-problem { color: var(--cloth); }
+
+  .b-pain2 {
+    grid-column: 4 / 7;
+    grid-row: 2;
+    background: var(--cloth);
+  }
+  .b-pain2 .pain-label { color: var(--gold); }
+  .b-pain2 .pain-problem { color: var(--cream); }
+  .b-pain2 .pain-solution { color: var(--cream); }
+
+  /* BACK ROW 3 — Pain Points 3-4 + Proof */
+  .b-pain3 {
+    grid-column: 1 / 3;
+    grid-row: 3;
+    background: var(--cloth);
+  }
+  .b-pain3 .pain-label { color: var(--gold); }
+  .b-pain3 .pain-problem { color: var(--cream); }
+  .b-pain3 .pain-solution { color: var(--cream); }
+
+  .b-pain4 {
+    grid-column: 3 / 5;
+    grid-row: 3;
+    background: var(--kraft);
+    color: var(--espresso);
+  }
+  .b-pain4 .pain-label { color: var(--cloth); }
+  .b-pain4 .pain-problem { color: var(--cloth); }
+
+  .b-proof {
+    grid-column: 5 / 7;
+    grid-row: 3;
+    background: var(--espresso);
+    text-align: center;
+  }
+  .b-proof .proof-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .b-proof .proof-stat {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 9px;
+    color: var(--gold);
+    line-height: 1.8;
+  }
+
+  /* BACK ROW 4 — Close + Contact */
+  .b-close {
+    grid-column: 1 / 4;
+    grid-row: 4;
+    background: var(--kraft);
+    border-top: 2px solid var(--gold);
+  }
+  .b-close .close-hook {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 700;
+    color: var(--cloth);
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .b-close .close-body {
+    font-size: 10px;
+    color: var(--espresso);
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  .b-contact {
+    grid-column: 4 / 7;
+    grid-row: 4;
+    background: var(--cloth);
+    text-align: right;
+    border-top: 2px solid var(--gold);
+  }
+  .b-contact .contact-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .b-contact .contact-name {
+    font-size: 10px;
+    color: var(--cream);
+    line-height: 1.6;
+  }
+  .b-contact .contact-email {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 9px;
+    color: var(--terracotta);
+    margin-top: 4px;
+  }
+  .b-contact .contact-tagline {
+    font-size: 9px;
+    font-style: italic;
+    color: var(--cream);
+    opacity: 0.6;
+    margin-top: 6px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================ -->
+<!-- FRONT PAGE — FROM JERSEY TO JAVA             -->
+<!-- 6 columns × 4 rows = 24 grid cells           -->
+<!-- ============================================ -->
+
+<div class="page-label">Front Page &mdash; 6&times;4 Collage &mdash; Print at 5&times;7&Prime;</div>
+
+<div class="front-page">
+
+  <!-- ROW 1: Title + From Jersey to Java -->
+  <div class="cell f-title">
+    <h1>Java Bridge Coffee</h1>
+    <div class="tagline">From Jersey to Java.</div>
+  </div>
+
+  <div class="cell f-jersey">
+    <div class="geo-label">Origin</div>
+    <div class="geo-place">New Jersey</div>
+  </div>
+
+  <div class="cell f-arrow">&#10230;</div>
+
+  <div class="cell f-java">
+    <div class="geo-label">Destination</div>
+    <div class="geo-place">East Java</div>
+  </div>
+
+  <!-- ROW 2: Three MY STORY Chapters -->
+  <div class="cell f-meeting">
+    <div class="chapter-num">Chapter 01 &mdash; The Meeting</div>
+    <div class="chapter-hook">I met my wife in 2021, and that moment reshaped everything.</div>
+    <div class="chapter-body">Indonesia taught me something different: opportunity follows trust. What began as an introduction became a permanent connection.</div>
+  </div>
+
+  <div class="cell f-commitment">
+    <div class="chapter-num">Chapter 02 &mdash; The Commitment</div>
+    <div class="chapter-hook">I did not arrive as a buyer. I arrived as family.</div>
+    <div class="chapter-body">I learned the language. I stayed. I earned trust. That commitment opened doors no exporter, broker, or buyer could ever purchase.</div>
+  </div>
+
+  <div class="cell f-union">
+    <div class="chapter-num">Chapter 03 &mdash; The Union</div>
+    <div class="chapter-hook">Two worlds. One bridge. Built by marriage and science.</div>
+    <div class="chapter-body">Dr. Fika Ayu Safitri &mdash; PhD agricultural biology. Together, we unite scientific rigor with lived agricultural knowledge at origin.</div>
+  </div>
+
+  <!-- ROW 3: Proof Strip — 6 data cells -->
+  <div class="cell proof-cell f-p1">
+    <div class="proof-number">12+</div>
+    <div class="proof-label">Family Farms</div>
+  </div>
+  <div class="cell proof-cell f-p2">
+    <div class="proof-number">50</div>
+    <div class="proof-label">Single-Origin Lots</div>
+  </div>
+  <div class="cell proof-cell f-p3">
+    <div class="proof-number">2%</div>
+    <div class="proof-label">Defect Rate</div>
+  </div>
+  <div class="cell proof-cell f-p4">
+    <div class="proof-number">0</div>
+    <div class="proof-label">Middlemen</div>
+  </div>
+  <div class="cell proof-cell f-p5">
+    <div class="proof-number">3</div>
+    <div class="proof-label">Regions<br>(Java&middot;Flores&middot;Bali)</div>
+  </div>
+  <div class="cell proof-cell f-p6">
+    <div class="proof-number">PhD</div>
+    <div class="proof-label">Verified Science</div>
+  </div>
+
+  <!-- ROW 4: Tagline + Signature -->
+  <div class="cell f-tagline">
+    <div class="tag-main">&ldquo;My marriage secured permanent infrastructure: twelve family farms across East Java, Central Java, and Bali, and a PhD co-founder who verifies every crop&rsquo;s scientific foundation.&rdquo;</div>
+    <div class="tag-sub">Most people visit origin. We live there. You can negotiate price. But you can&rsquo;t replicate being part of the family.</div>
+  </div>
+  <div class="cell f-signature">
+    <div class="sig-name">Chris Parker</div>
+    <div class="sig-title">Founder, Java Bridge Coffee</div>
+    <div class="sig-name" style="margin-top: 6px;">Dr. Fika Ayu Safitri</div>
+    <div class="sig-title">Co-Founder, PhD Agr. Biology</div>
+    <div class="sig-date">Prepared for Jamie &bull; Feb 2026</div>
+  </div>
+
+</div>
+
+
+<!-- ============================================ -->
+<!-- BACK PAGE — JAMIE'S PAIN POINTS              -->
+<!-- 6 columns × 4 rows = 24 grid cells           -->
+<!-- ============================================ -->
+
+<div class="page-label" style="margin-top: 20px;">Back Page &mdash; Jamie&rsquo;s Pain Points &times; Bridge Solutions</div>
+
+<div class="back-page">
+
+  <!-- ROW 1: Header + Jamie Profile -->
+  <div class="cell b-header">
+    <div class="b-supertitle">For Jamie</div>
+    <h2>Why This Matters for<br>Someone at Your Level</h2>
+    <div class="b-subtitle">You don&rsquo;t buy commodity. You acquire position.</div>
+  </div>
+
+  <div class="cell b-profile">
+    <div class="profile-label">Decision-Maker Profile</div>
+    <div class="profile-item"><strong>Authority:</strong> Final decision &mdash; President/CEO Purchasing &amp; Sales</div>
+    <div class="profile-item"><strong>Experience:</strong> 12+ years specialty coffee imports</div>
+    <div class="profile-item"><strong>Risk:</strong> Low &mdash; demands proven repeatability</div>
+    <div class="profile-item"><strong>Scale:</strong> FCL container loads</div>
+    <div class="profile-item"><strong>Gap:</strong> Indonesia (strategic expansion target)</div>
+  </div>
+
+  <!-- ROW 2: Pain Points 1 & 2 -->
+  <div class="cell pain-cell b-pain1">
+    <div class="pain-label">Pain Point 01</div>
+    <div class="pain-problem">Market Volatility &amp; Cost Unpredictability</div>
+    <div class="pain-solution">Indonesia as stable, tariff-insulated alternative to Brazil. Dependable cost basis. Rupiah depreciated 3%. GL-Index 2.57 &mdash; most profitable specialty market globally.</div>
+  </div>
+
+  <div class="cell pain-cell b-pain2">
+    <div class="pain-label">Pain Point 02</div>
+    <div class="pain-problem">Compliance Delays &amp; QC Bottlenecks</div>
+    <div class="pain-solution">Dr. Safitri: pre-shipment moisture/aflatoxin testing, PhD soil analysis. Converts regulatory risk into guaranteed compliance. Eliminates NYC lab bottlenecks.</div>
+  </div>
+
+  <!-- ROW 3: Pain Points 3-4 + Proof Column -->
+  <div class="cell pain-cell b-pain3">
+    <div class="pain-label">Pain Point 03</div>
+    <div class="pain-problem">Lack of Differentiation</div>
+    <div class="pain-solution">Exclusive micro-lots that never hit open market. Proprietary access via family integration. Your menu becomes the only menu in North America.</div>
+  </div>
+
+  <div class="cell pain-cell b-pain4">
+    <div class="pain-label">Pain Point 04</div>
+    <div class="pain-problem">Flavor Profile Risk</div>
+    <div class="pain-solution">Familiar DNA, pushed forward. Honey East Java, Anaerobic Bali build on Blue Moon preference without re-educating roasters.</div>
+  </div>
+
+  <div class="cell b-proof">
+    <div class="proof-headline">The Numbers Don&rsquo;t Lie</div>
+    <div class="proof-stat">$0.85 &rarr; $3.80 margin</div>
+    <div class="proof-stat">18% &rarr; 2% defect rate</div>
+    <div class="proof-stat">6&ndash;8 &rarr; 0 middlemen</div>
+    <div class="proof-stat">+22% yield (genetic)</div>
+    <div class="proof-stat">-40% input cost</div>
+    <div class="proof-stat">50 single-origin lots</div>
+  </div>
+
+  <!-- ROW 4: Close + Contact -->
+  <div class="cell b-close">
+    <div class="close-hook">Taste the coffee. That&rsquo;s it.</div>
+    <div class="close-body">If it&rsquo;s not worth your time, I&rsquo;ll shake your hand and walk out. But if it is &mdash; you get exclusive access to lots that don&rsquo;t exist on anyone else&rsquo;s menu. First movers write the story. Late arrivals compete on price.</div>
+  </div>
+
+  <div class="cell b-contact">
+    <div class="contact-brand">Java Bridge Coffee</div>
+    <div class="contact-name">Chris Parker | Dr. Fika Ayu Safitri</div>
+    <div class="contact-email">christopher@parkersportfolio.info</div>
+    <div class="contact-tagline">East Java to New York. No Middlemen.</div>
+  </div>
+
+</div>
+
+</body>
+</html>

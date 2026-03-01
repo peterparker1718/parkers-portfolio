@@ -126,7 +126,7 @@ describe("Period Density Analysis — All Hooks", () => {
 
   it("should have correct rhythm classification for known hooks", () => {
     const storyMeetingAnalysis = analyses.find((a) => a.pageId === "story-meeting")!;
-    expect(storyMeetingAnalysis.rhythm).toBe("declarative-power");
+    expect(storyMeetingAnalysis.rhythm).toBe("binary-impact");
 
     const backAnalysis = analyses.find((a) => a.pageId === "back")!;
     expect(backAnalysis.rhythm).toBe("triadic-authority");

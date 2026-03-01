@@ -102,11 +102,11 @@ export const PAGES: PageContent[] = [
   {
     id: "story-meeting",
     title: "MY STORY",
-    hook: "I met my wife in 2021, and that moment reshaped everything.",
+    hook: "I didn't enter the Indonesian coffee market. I married into it.",
     body: [
       "I was born in New Jersey — raised to believe opportunity follows effort.",
       "Indonesia taught me something different: opportunity follows trust.",
-      "What began as a simple introduction became a permanent connection.",
+      "That wasn't a sourcing decision. It was a life decision that solved what most buyers spend years chasing.",
     ],
     proof: [
       "New Jersey → Indonesia → East Java",
@@ -122,8 +122,8 @@ export const PAGES: PageContent[] = [
     hook: "I did not arrive as a buyer. I arrived as family.",
     body: [
       "I learned the language. I stayed. I earned trust.",
-      "That commitment opened doors no exporter, broker, or buyer could ever purchase.",
-      "Over time, I built a life inside one of Indonesia's most protected coffee ecosystems.",
+      "Marriage created residency. Residency created trust. Trust created access.",
+      "Most people visit origin. We live there. You can negotiate price — but you can't replicate being family.",
     ],
     proof: [
       "Bilingual fluency → Permanent residency → Family integration",
@@ -138,9 +138,9 @@ export const PAGES: PageContent[] = [
     title: "MY STORY",
     hook: "Two worlds. One bridge. Built by marriage and science.",
     body: [
-      "Dr. Fika Ayu Safitri — PhD agricultural biologist, multi-generational East Java farming family.",
-      "Together, we unite scientific rigor with lived agricultural knowledge at origin.",
-      "Java Bridge exists because my life now spans two worlds.",
+      "Dr. Fika Ayu Safitri — PhD agricultural biologist, SCA certified, from Lumajang near Bromo.",
+      "She understands soil systems, fermentation science, and sensory calibration at a technical level.",
+      "I handle structure, logistics, and relationships. Together we operate across fifty single-origin lots.",
     ],
     proof: [
       "Genetic audits → Farm-level verification → Environmental control",
